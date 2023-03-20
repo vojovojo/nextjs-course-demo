@@ -1,18 +1,19 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
 // /api/new-meetup
 // POST /api/new-meetup
 
 async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const data = req.body;
+    console.log(data);
 
     const client = await MongoClient.connect(
-      'mongodb+srv://maximilian:arlAapzPqFyo4xUk@cluster0.ntrwp.mongodb.net/meetups?retryWrites=true&w=majority'
+      "mongodb+srv://maximilian:arlAapzPqFyo4xUk@cluster0.ntrwp.mongodb.net/meetups?retryWrites=true&w=majority"
     );
     const db = client.db();
 
-    const meetupsCollection = db.collection('meetups');
+    const meetupsCollection = db.collection("meetups");
 
     const result = await meetupsCollection.insertOne(data);
 
@@ -20,7 +21,7 @@ async function handler(req, res) {
 
     client.close();
 
-    res.status(201).json({ message: 'Meetup inserted!' });
+    res.status(201).json({ message: "Meetup inserted!" });
   }
 }
 
